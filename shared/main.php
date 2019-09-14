@@ -1,5 +1,5 @@
 <?php
-$webApiVersion = '0.1.0';
+$webApiVersion = '0.1.1';
 
 function sendResponse($apiResponse) {
     global $webApiVersion;
@@ -9,5 +9,5 @@ function sendResponse($apiResponse) {
         'jsonApiVersion' => $webApiVersion,
     ];
 
-    echo json_encode($response);
+    echo json_encode($response)."\n";
 }
