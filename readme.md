@@ -20,7 +20,7 @@ Example response:
 
 Responses from the UUP dump API are always returned in the `response` key.
 
-If requests fails, a HTTP error code will be set to:
+If request fails, a HTTP error code will be set to:
   - `400` if request was malformed
   - `429` if user is being rate limited
   - `500` if retrieval of data was unsuccessful
@@ -80,6 +80,9 @@ Parameters:
  - `edition` - Create UUP set for selected edition (optional)
    - **Supported values:** any edition name
    - **NOTE:** You need to specify `lang` to get successful request
+
+ - `noLinks` - Do not retrieve download links for created UUP set (optional)
+   - **Supported values:** 0 = Disable, 1 = Enable
 
 #### `/listlangs.php`
 Lists available languages for specified Update ID

@@ -6,17 +6,19 @@ require_once 'shared/ratelimits.php';
 $updateId = isset($_GET['id']) ? $_GET['id'] : null;
 $usePack = isset($_GET['lang']) ? $_GET['lang'] : 0;
 $desiredEdition = isset($_GET['edition']) ? $_GET['edition'] : 0;
+$noLinks = isset($_GET['noLinks']) ? $_GET['noLinks'] : 0;
 
 header('Content-Type: application/json');
 
 $resource = hash('sha1', strtolower("get-$updateId-$usePack-$desiredEdition"));
-if(checkIfUserIsRateLimited($resource)) {
+if(checkIfUserIsRateLimited($resource) && !$noLinks) {
     http_response_code(429);
     sendResponse(['error' => 'USER_RATE_LIMITED']);
     die();
 }
 
-$apiResponse = uupGetFiles($updateId, $usePack, $desiredEdition, 1);
+$mode = $noLinks ? 2 : 1;
+$apiResponse = uupGetFiles($updateId, $usePack, $desiredEdition, $mode);
 if(isset($apiResponse['error'])) {
     switch($apiResponse['error']) {
         case 'NO_FILES':
