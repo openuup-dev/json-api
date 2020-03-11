@@ -1,5 +1,4 @@
 # UUP dump JSON API
------------------
 
 ## Description
 A simple endpoint allowing access to the UUP dump API using simple HTTP GET requests.
@@ -56,7 +55,7 @@ Parameters:
         "build": "string", // Update build number, for example 19577.1000
         "arch": " string", // Update architecture, for example amd64
         "created": 1234567890, // Timestamp of when the build was added to the database
-        "uuid": "string" // UUIDv4 Update Identifier
+        "uuid": "string" // UUID Update Identifier
       },
       ...
     ]
@@ -95,14 +94,14 @@ Parameters:
 {
   "response": {
     "apiVersion": "string", // Current UUP dump API version
-    "updateId": "string", // UUIDv4 Update Identifier
+    "updateId": "string", // UUID Update Identifier
     "updateTitle": "string", // Update title, such as Windows 10 Insider Preview 19577.1000 (rs_prerelease)
     "foundBuild": "string", // Update build number, such as 19577.1000
     "arch": "string", // Update architecture, such as amd64/x86/arm64
     "fileWrite": "string", // NO_SAVE if the build was already in the database, INFO_WRITTEN if it was just added to it.
     "updateArray": [
       {
-        "updateId": "string", // UUIDv4 Update Identifier
+        "updateId": "string", // UUID Update Identifier
         "updateTitle": "string", // Update title, such as Windows 10 Insider Preview 19577.1000 (rs_prerelease)
         "foundBuild": "string", // Update build number, such as 19577.1000
         "arch": "string", // Update architecture, such as amd64/x86/arm64
@@ -119,8 +118,8 @@ Retrieves download links for specified Update ID and provides lists of ready to
 use UUP sets.
 
 Parameters:
- - `id` - Update identifier (UUIDv4 string)
-   - **Supported values:** Any valid update identifier in the UUIDv4 format.
+ - `id` - Update identifier (UUID string)
+   - **Supported values:** Any valid update identifier in the UUID format, may include revision in the following format: "UUID_rev.2".
 
  - `lang` - Create UUP set for selected language (optional)
    - **Supported values:** Language name in xx-xx format.
@@ -160,8 +159,8 @@ Parameters:
 Lists available languages for the specified Update ID.
 
 Parameters:
- - `id` - Optional Update identifier (UUIDv4 string)
-   - **Supported values:** Any valid update identifier in the UUIDv4 format.
+ - `id` - Optional Update identifier (UUID string)
+   - **Supported values:** Any valid update identifier in the UUID format,  may include revision in the following format: "UUID_rev.2".
 
 #### JSON response format:
 ```javascript
@@ -188,8 +187,8 @@ Parameters:
 - `lang` - Generate edition list for the selected language
    - **Supported values:** Language name in xx-xx format
 
- - `id` - Optional update identifier (UUIDv4 string)
-   - **Supported values:** Any valid update identifier in the UUIDv4 format.
+ - `id` - Optional update identifier (UUID string)
+   - **Supported values:** Any valid update identifier in the UUID format, may include revision in the following format: "UUID_rev.2".
 
 #### JSON response format:
 ```javascript
