@@ -1,22 +1,12 @@
-UUP dump JSON API
+# UUP dump JSON API
 -----------------
 
-### Description
+## Description
 A simple endpoint allowing access to the UUP dump API using simple HTTP GET requests.
 
-### Usage
+## Usage
 All requests are done using GET requests with parameters specified in the URL.
 Responses are provided in JSON format.
-
-Example response:
-```json
-{
-  "response": {
-    "apiVersion": "1.27.0"
-  },
-  "jsonApiVersion": "0.1.0-alpha"
-}
-```
 
 Responses from the UUP dump API are always returned in the `response` key.
 
@@ -28,14 +18,24 @@ If request fails, a HTTP error code will be set to:
 In such cases `response` key will contain an `error` key with short description
 of the error.
 
-### Supported endpoints
-#### `/` or `/index.php`
-Returns versions of APIs
+## Supported endpoints
+### `/` or `/index.php`
+Returns versions of both JSON and UUP dump APIs
 
 Parameters:
   - None
 
-#### `/listid.php`
+#### JSON response format:
+```json
+{
+  "response": {
+    "apiVersion":"string" // Current UUP dump API version
+  },
+  "jsonApiVersion": "string" // Current JSON API version
+}
+```
+
+### `/listid.php`
 Returns a list of builds in the local database. (like "Browse the list of known builds" on the website)
 
 Parameters:
@@ -45,7 +45,27 @@ Parameters:
  - `sortByDate` - Optional sorting results by creation date
    - **Supported values:** 0 = Disable, 1 = Enable
 
-#### `/fetchupd.php`
+#### JSON response format:
+```json
+{
+  "response": {
+    "apiVersion":"string", // Current UUP dump API version
+    "builds": [
+      {
+        "title": "string", // Update title, for example Windows 10 Insider Preview 19577.1000 (rs_prerelease)
+        "build": "string", // Update build number, for example 19577.1000
+        "arch": " string", // Update architecture, for example amd64
+        "created": 1234567890, // Timestamp of when the build was added to the database
+        "uuid": "string" // UUIDv4 Update Identifier
+      },
+      ...
+    ]
+  },
+  "jsonApiVersion": "string" // Current JSON API version
+}
+```
+
+### `/fetchupd.php`
 Fetches the latest builds from Windows Update servers using specified
 parameters. (like "Fetch the latest build" on the website)
 
@@ -70,7 +90,31 @@ Parameters:
  - `sku` - SKU number to use when fetching information
    - **Supported values:** Any SKU integer
 
-#### `/get.php`
+#### JSON response format:
+```json
+{
+  "response": {
+    "apiVersion": "string", // Current UUP dump API version
+    "updateId": "string", // UUIDv4 Update Identifier
+    "updateTitle": "string", // Update title, such as Windows 10 Insider Preview 19577.1000 (rs_prerelease)
+    "foundBuild": "string", // Update build number, such as 19577.1000
+    "arch": "string", // Update architecture, such as amd64/x86/arm64
+    "fileWrite": "string", // NO_SAVE if the build was already in the database, INFO_WRITTEN if it was just added to it.
+    "updateArray": [
+      {
+        "updateId": "string", // UUIDv4 Update Identifier
+        "updateTitle": "string", // Update title, such as Windows 10 Insider Preview 19577.1000 (rs_prerelease)
+        "foundBuild": "string", // Update build number, such as 19577.1000
+        "arch": "string", // Update architecture, such as amd64/x86/arm64
+        "fileWrite": "string" // NO_SAVE if the build was already in the database, INFO_WRITTEN if it was just added to it.
+      }
+    ]
+  },
+  "jsonApiVersion": "string" // Current JSON API version
+}
+```
+
+### `/get.php`
 Retrieves download links for specified Update ID and provides lists of ready to
 use UUP sets.
 
@@ -79,24 +123,65 @@ Parameters:
    - **Supported values:** Any valid update identifier in the UUIDv4 format.
 
  - `lang` - Create UUP set for selected language (optional)
-   - **Supported values:** language name in xx-xx format
+   - **Supported values:** Language name in xx-xx format.
 
  - `edition` - Create UUP set for the selected edition (optional)
-   - **Supported values:** Any edition name
-   - **NOTE:** Must be used with `lang`
+   - **Supported values:** Any edition name.
+   - **NOTE:** Must be used with `lang`.
 
  - `noLinks` - Do not retrieve download links for the created UUP set (optional)
-   - **Supported values:** 0 = Disable, 1 = Enable
+   - **Supported values:** 0 = Disable (Retrieve links), 1 = Enable (No links)
 
-#### `/listlangs.php`
+#### JSON response format:
+```json
+{
+  "response": {
+    "apiVersion": "string", // Current UUP dump API version
+    "updateName": "string", // Update title, such as Windows 10 Insider Preview 19577.1000 (rs_prerelease)
+    "arch": "string", // Update architecture, for example x86
+    "build": "string", // Update build number, for example 19577.1000
+    "files": { // All files contained in the package
+      "string": { // File name, such as 'core_en-us.esd', 'microsoft-windows-client-features-package.esd', etc.
+        "sha1": "string", // The file's SHA1 checksum.
+        "size": "string", // File size in bytes
+        "url": "string", // File download link, 'null' if noLinks=1
+        "uuid": "string", // File UUIDv4, 'null' if noLinks=1 used
+        "expire": "string", // Link expiration date, '0' if noLinks=1 used
+        "debug": "string" // Raw data from Microsoft servers, 'null' if noLinks=1 used
+      },
+      ...
+    }
+  },
+  "jsonApiVersion": "string" // Current JSON API version
+}
+```
+
+### `/listlangs.php`
 Lists available languages for the specified Update ID.
 
 Parameters:
  - `id` - Optional Update identifier (UUIDv4 string)
    - **Supported values:** Any valid update identifier in the UUIDv4 format.
 
+#### JSON response format:
+```json
+{
+  "response": {
+    "apiVersion": "string", // Current UUP dump API version
+    "langList": [
+      "en-gb", // Short language name, xx-xx format.
+      ...
+    ],
+    "langFancyNames": {
+      "en-gb": "English (United Kingdom)", // key-value pairs of xx-xx to full language name.
+      ...
+    }
+  },
+  "jsonApiVersion": "string" // Current JSON API version
+}
+```
 
-#### `/listlangs.php`
+### `/listeditions.php`
 Lists available editions for the specified Update ID.
 
 Parameters:
@@ -105,3 +190,21 @@ Parameters:
 
  - `id` - Optional update identifier (UUIDv4 string)
    - **Supported values:** Any valid update identifier in the UUIDv4 format.
+
+#### JSON response format:
+```json
+{
+  "response": {
+    "apiVersion": "string", // Current UUP dump API version
+    "editionList": [
+      "CLOUD", // Short edition name
+      ...
+    ],
+    "editionFancyNames": {
+      "CLOUD": "Windows 10 S", // key-value pairs of edition name to fancy edition name.
+      ...
+    }
+  },
+  "jsonApiVersion": "string" // Current JSON API version
+}
+```
