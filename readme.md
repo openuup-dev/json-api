@@ -26,7 +26,7 @@ Parameters:
   - None
 
 #### JSON response format:
-```json
+```javascript
 {
   "response": {
     "apiVersion":"string" // Current UUP dump API version
@@ -46,7 +46,7 @@ Parameters:
    - **Supported values:** 0 = Disable, 1 = Enable
 
 #### JSON response format:
-```json
+```javascript
 {
   "response": {
     "apiVersion":"string", // Current UUP dump API version
@@ -91,7 +91,7 @@ Parameters:
    - **Supported values:** Any SKU integer
 
 #### JSON response format:
-```json
+```javascript
 {
   "response": {
     "apiVersion": "string", // Current UUP dump API version
@@ -133,7 +133,7 @@ Parameters:
    - **Supported values:** 0 = Disable (Retrieve links), 1 = Enable (No links)
 
 #### JSON response format:
-```json
+```javascript
 {
   "response": {
     "apiVersion": "string", // Current UUP dump API version
@@ -164,7 +164,7 @@ Parameters:
    - **Supported values:** Any valid update identifier in the UUIDv4 format.
 
 #### JSON response format:
-```json
+```javascript
 {
   "response": {
     "apiVersion": "string", // Current UUP dump API version
@@ -192,7 +192,7 @@ Parameters:
    - **Supported values:** Any valid update identifier in the UUIDv4 format.
 
 #### JSON response format:
-```json
+```javascript
 {
   "response": {
     "apiVersion": "string", // Current UUP dump API version
