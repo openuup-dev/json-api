@@ -8,17 +8,18 @@ $ring = isset($_GET['ring']) ? $_GET['ring'] : 'WIF';
 $flight = isset($_GET['flight']) ? $_GET['flight'] : 'Active';
 $build = isset($_GET['build']) ? $_GET['build'] : 'latest';
 $sku = isset($_GET['sku']) ? $_GET['sku'] : '48';
+$type = isset($_GET['type']) ? $_GET['type'] : 'Production';
 
 header('Content-Type: application/json');
 
-$resource = hash('sha1', strtolower("fetch-$arch-$ring-$flight-$build-$sku"));
+$resource = hash('sha1', strtolower("fetch-$arch-$ring-$flight-$build-$sku-$type"));
 if(checkIfUserIsRateLimited($resource)) {
     http_response_code(429);
     sendResponse(['error' => 'USER_RATE_LIMITED']);
     die();
 }
 
-$apiResponse = uupFetchUpd($arch, $ring, $flight, $build, 0, $sku, 1);
+$apiResponse = uupFetchUpd($arch, $ring, $flight, $build, 0, $sku, $type, 1);
 if(isset($apiResponse['error'])) {
     switch($apiResponse['error']) {
         case 'EMPTY_FILELIST':
