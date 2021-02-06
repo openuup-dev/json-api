@@ -1,5 +1,5 @@
 <?php
-$webApiVersion = '0.2.0';
+$webApiVersion = '0.2.1';
 
 function sendResponse($apiResponse) {
     global $webApiVersion;

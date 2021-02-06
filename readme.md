@@ -70,17 +70,15 @@ parameters. (like "Fetch the latest build" on the website)
 
 Parameters:
  - `arch` - Specifies which architecture the API will return.
-   - **Supported values:** `amd64`, `arm64`, `x86`
+   - **Supported values:** `amd64`, `x86`, `arm64`, `all`
 
- - `ring` - Specifies the ring the API uses when querying Windows Update servers.
-   - **Supported values:** `WIF`, `WIS`, `RP`, `RETAIL`
-    - `WIF` - Windows Insider Fast
-    - `WIS` - Windows Insider Slow
-    - `RP` - Release Preview
-    - `RETAIL` - Retail
+ - `ring` - Specifies the channel (ring) the API uses when querying Windows Update servers.
+   - **Supported values:** `Dev`, `Beta`, `ReleasePreview`, `Retail`
+   - **Supported Ring values :** `WIF`, `WIS`, `RP`, `RETAIL`
 
- - `flight` - Flight to use when fetching information
-   - **Supported values:** `Active`, `Skip`, `Current`
+ - `flight` - Content (Flight) tye to use when fetching information
+   - **Supported values:** `Mainline`
+   - **Supported Flight values:** `Active`, `Skip`, `Current`
    - **NOTE:** `Skip` is for `WIF` ring only. `Current` is for `RP` ring only.
 
  - `build` - Build number to use by the API when fetching information
@@ -88,6 +86,9 @@ Parameters:
 
  - `sku` - SKU number to use when fetching information
    - **Supported values:** Any SKU integer
+
+ - `type` - Release type to use when fetching information for Windows Core OS (WCOS), e.g. Windows 10X
+   - **Supported values:** `Production`, `Test`
 
 #### JSON response format:
 ```javascript
