@@ -10,7 +10,8 @@ $noLinks = isset($_GET['noLinks']) ? $_GET['noLinks'] : 0;
 
 header('Content-Type: application/json');
 
-$resource = hash('sha1', strtolower("get-$updateId-$usePack-$desiredEdition"));
+$edition = is_array($desiredEdition) ? implode('_', $desiredEdition) : $desiredEdition;
+$resource = hash('sha1', strtolower("get-$updateId-$usePack-$edition"));
 if(checkIfUserIsRateLimited($resource) && !$noLinks) {
     http_response_code(429);
     sendResponse(['error' => 'USER_RATE_LIMITED']);
