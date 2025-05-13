@@ -76,7 +76,7 @@ Parameters:
    - **Supported values:** `Canary`, `Dev`, `Beta`, `ReleasePreview`, `Retail`
    - **Supported Ring values :** `WIF`, `WIS`, `RP`, `RETAIL`
 
- - `flight` - Content (Flight) tye to use when fetching information
+ - `flight` - Content (Flight) type to use when fetching information
    - **Supported values:** `Mainline`
    - **Supported Flight values:** `Active`, `Skip`, `Current`
    - **NOTE:** `Skip` is for `WIF` ring only. `Current` is for `RP` ring only.
