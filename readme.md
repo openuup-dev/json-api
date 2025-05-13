@@ -1,13 +1,13 @@
-# UUP dump JSON API
+# OpenUUP JSON API
 
 ## Description
-A simple endpoint allowing access to the UUP dump API using simple HTTP GET requests.
+A simple endpoint allowing access to the OpenUUP API using simple HTTP GET requests.
 
 ## Usage
 All requests are done using GET requests with parameters specified in the URL.
 Responses are provided in JSON format.
 
-Responses from the UUP dump API are always returned in the `response` key.
+Responses from the OpenUUP API are always returned in the `response` key.
 
 If request fails, a HTTP error code will be set to:
   - `400` if request was malformed
@@ -19,7 +19,7 @@ of the error.
 
 ## Supported endpoints
 ### `/` or `/index.php`
-Returns versions of both JSON and UUP dump APIs
+Returns versions of both JSON and OpenUUP APIs
 
 Parameters:
   - None
@@ -28,7 +28,7 @@ Parameters:
 ```javascript
 {
   "response": {
-    "apiVersion":"string" // Current UUP dump API version
+    "apiVersion":"string" // Current OpenUUP API version
   },
   "jsonApiVersion": "string" // Current JSON API version
 }
@@ -48,7 +48,7 @@ Parameters:
 ```javascript
 {
   "response": {
-    "apiVersion":"string", // Current UUP dump API version
+    "apiVersion":"string", // Current OpenUUP API version
     "builds": [
       {
         "title": "string", // Update title, for example Windows 10 Insider Preview 19577.1000 (rs_prerelease)
@@ -94,7 +94,7 @@ Parameters:
 ```javascript
 {
   "response": {
-    "apiVersion": "string", // Current UUP dump API version
+    "apiVersion": "string", // Current OpenUUP API version
     "updateId": "string", // UUID Update Identifier
     "updateTitle": "string", // Update title, such as Windows 10 Insider Preview 19577.1000 (rs_prerelease)
     "foundBuild": "string", // Update build number, such as 19577.1000
@@ -136,7 +136,7 @@ Parameters:
 ```javascript
 {
   "response": {
-    "apiVersion": "string", // Current UUP dump API version
+    "apiVersion": "string", // Current OpenUUP API version
     "updateName": "string", // Update title, such as Windows 10 Insider Preview 19577.1000 (rs_prerelease)
     "arch": "string", // Update architecture, for example x86
     "build": "string", // Update build number, for example 19577.1000
@@ -167,7 +167,7 @@ Parameters:
 ```javascript
 {
   "response": {
-    "apiVersion": "string", // Current UUP dump API version
+    "apiVersion": "string", // Current OpenUUP API version
     "langList": [
       "en-gb", // Short language name, xx-xx format.
       ...
@@ -195,7 +195,7 @@ Parameters:
 ```javascript
 {
   "response": {
-    "apiVersion": "string", // Current UUP dump API version
+    "apiVersion": "string", // Current OpenUUP API version
     "editionList": [
       "CLOUD", // Short edition name
       ...
