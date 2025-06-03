@@ -1,3 +1,3 @@
 [submodule "api"]
 	path = api
-	url = https://somegit.dev/openuup/api.git
+	url = https://github.com/openuup-dev/api.git
